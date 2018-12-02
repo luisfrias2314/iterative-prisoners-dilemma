@@ -1,28 +1,32 @@
 --------------------------------------------------------------------------------
 Section 0 - Line up
 --------------------------------------------------------------------------------
-Player 0 (P0): E0, Collude
-        Always collude.
-Player 1 (P1): HONG KONG, STRAG1
+Player 0 (P0): E1, Betray
+        Always betray.
+Player 1 (P1): E2, Alternate
+        Collude, then alternate.
+Player 2 (P2): The name the team gives to itself, The name the team gives to this strategy
         How does this strategy decide?
 --------------------------------------------------------------------------------
 Section 1 - Player vs. Player
 --------------------------------------------------------------------------------
 Each column shows pts/round earned against each other player:
-             P0     P1
-vs. P0 :      0      2
-vs. P1 :    -15      0
-TOTAL  :    -15      2
+             P0     P1     P2
+vs. P0 :      0   -375   -500
+vs. P1 :    -75      0   -249
+vs. P2 :    100     49      0
+TOTAL  :     25   -326   -749
 --------------------------------------------------------------------------------
 Section 2 - Leaderboard
 --------------------------------------------------------------------------------
 Average points per round:
 Team name (P#):  Score      with strategy name
-HONG KONG (P1):          1 points with STRAG1                                  
-E0        (P0):         -8 points with Collude                                 
+E1        (P0):          8 points with Betray                                  
+E2        (P1):       -109 points with Alternate                               
+The name t(P2):       -250 points with The name the team gives to this strategy
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-example0--------------------------------------------------------------------------------
+example1--------------------------------------------------------------------------------
 ####
 # Each team's file must define four tokens:
 #     team_name: a string
@@ -31,9 +35,9 @@ example0------------------------------------------------------------------------
 #     move: A function that returns 'c' or 'b'
 ####
 
-team_name = 'E0'
-strategy_name = 'Collude'
-strategy_description = 'Always collude.'
+team_name = 'E1'
+strategy_name = 'Betray'
+strategy_description = 'Always betray.'
     
 def move(my_history, their_history, my_score, their_score):
     '''Make my move based on the history with this player.
@@ -46,10 +50,10 @@ def move(my_history, their_history, my_score, their_score):
     Returns 'c' or 'b' for collude or betray.
     '''
     
-    # This player always colludes.
-    return 'c'
-    --------------------------------------------------------------------------------
-team6--------------------------------------------------------------------------------
+    #This example player always betrays.      
+    return 'b'
+--------------------------------------------------------------------------------
+example2--------------------------------------------------------------------------------
 ####
 # Each team's file must define four tokens:
 #     team_name: a string
@@ -58,8 +62,39 @@ team6---------------------------------------------------------------------------
 #     move: A function that returns 'c' or 'b'
 ####
 
-team_name = 'HONG KONG' # Only 10 chars displayed.
-strategy_name = 'STRAG1'
+team_name = 'E2'
+strategy_name = 'Alternate'
+strategy_description = 'Collude, then alternate.'
+    
+def move(my_history, their_history, my_score, their_score):
+    '''Make my move based on the history with this player.
+    
+    history: a string with one letter (c or b) per round that has been played with this opponent.
+    their_history: a string of the same length as history, possibly empty. 
+    The first round between these two players is my_history[0] and their_history[0]
+    The most recent round is my_history[-1] and their_history[-1]
+    
+    Returns 'c' or 'b' for collude or betray.
+    '''
+    # This player colludes on even numbered rounds (first round is round #0).
+    if len(my_history)%2 == 0:
+        return 'c'
+    else:
+        return 'b'
+    
+    
+    --------------------------------------------------------------------------------
+team0--------------------------------------------------------------------------------
+####
+# Each team's file must define four tokens:
+#     team_name: a string
+#     strategy_name: a string
+#     strategy_description: a string
+#     move: A function that returns 'c' or 'b'
+####
+
+team_name = 'The name the team gives to itself' # Only 10 chars displayed.
+strategy_name = 'The name the team gives to this strategy'
 strategy_description = 'How does this strategy decide?'
     
 def move(my_history, their_history, my_score, their_score):
@@ -78,28 +113,9 @@ def move(my_history, their_history, my_score, their_score):
     # Analyze my_history and their_history and/or my_score and their_score.
     # Decide whether to return 'c' or 'b'.
     
-    
-    if len(my_history) < 5: # It's the first round; collude.
-        return 'b'
+    return 'c'
 
-    def must_common(common): 
-        y = 0
-        x = 0
-        for letters in their_history[-5:]:
-            if(letters == 'c'):
-                y =+ 1
-            else:
-                x =+ 1
-        if (y > x):
-            common = 'c' 
-        else:
-            common = 'b'
     
- 
-    if must_common(common = 'c'):
-        return 'b'
-    else: 
-        return 'c'
 def test_move(my_history, their_history, my_score, their_score, result):
     '''calls move(my_history, their_history, my_score, their_score)
     from this module. Prints error if return value != result.
@@ -136,36 +152,72 @@ if __name__ == '__main__':
               # move('bbb', 'ccc', 0, 0) returns 'b'.
               my_score=0, 
               their_score=0,
-              result='b')   
-
-    
-         --------------------------------------------------------------------------------
-Section 3 - Game Data for Team E0
+              result='b')             --------------------------------------------------------------------------------
+Section 3 - Game Data for Team E1
 --------------------------------------------------------------------------------
--15 pt/round: E0(P0) "Collude"
-2 pt/round: HONG KONG(P1) "STRAG1"
-cccccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-BBBBBCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+-75 pt/round: E1(P0) "Betray"
+-375 pt/round: E2(P1) "Alternate"
+BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
+cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
 
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
+cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
 
-CCCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCC
+Bb
+cb
 
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-Section 3 - Game Data for Team HONG KONG
---------------------------------------------------------------------------------
-2 pt/round: HONG KONG(P1) "STRAG1"
--15 pt/round: E0(P0) "Collude"
-BBBBBCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-cccccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+100 pt/round: E1(P0) "Betray"
+-500 pt/round: The name the team gives to itself(P2) "The name the team gives to this strategy"
+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
-CCCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCC
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Section 3 - Game Data for Team E2
+--------------------------------------------------------------------------------
+-375 pt/round: E2(P1) "Alternate"
+-75 pt/round: E1(P0) "Betray"
+cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
+BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
+
+cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
+BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
+
+cb
+Bb
+
+--------------------------------------------------------------------------------
+49 pt/round: E2(P1) "Alternate"
+-249 pt/round: The name the team gives to itself(P2) "The name the team gives to this strategy"
+CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCB
+CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCc
+
+CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBC
+CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcC
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Section 3 - Game Data for Team The name the team gives to itself
+--------------------------------------------------------------------------------
+-500 pt/round: The name the team gives to itself(P2) "The name the team gives to this strategy"
+100 pt/round: E1(P0) "Betray"
+cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+
+cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+
+--------------------------------------------------------------------------------
+-249 pt/round: The name the team gives to itself(P2) "The name the team gives to this strategy"
+49 pt/round: E2(P1) "Alternate"
+CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCc
+CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCB
+
+CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcC
+CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBC
 
 --------------------------------------------------------------------------------

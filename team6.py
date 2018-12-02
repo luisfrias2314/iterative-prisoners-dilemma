@@ -11,6 +11,7 @@ strategy_name = 'STRAG1'
 strategy_description = 'How does this strategy decide?'
 
 
+
     
 def move(my_history, their_history, my_score, their_score):
     ''' Arguments accepted: my_history, their_history are strings.
@@ -31,7 +32,8 @@ def move(my_history, their_history, my_score, their_score):
     
     if len(my_history) < 5: # It's the first round; collude.
         return 'b'
-    def must_common(common): 
+
+    def must_common(average): 
         y = 0
         x = 0
         for letters in their_history[-5:]:
@@ -43,9 +45,9 @@ def move(my_history, their_history, my_score, their_score):
             common = 'c' 
         else:
             common = 'b'
-
-    
-    if must_common(common) == 'c':
+        average == common 
+            
+    if must_common(average='c'):
         return 'b'
     else: 
         return 'c'
