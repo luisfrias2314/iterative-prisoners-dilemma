@@ -32,12 +32,23 @@ def move(my_history, their_history, my_score, their_score):
     def must_common(common=''): 
         y = 0
         x = 0
-        for letters in their_history[-6:]:
-            if(letters == 'c'or 'C'):
+        for letters in their_history[-5:]:
+            if(letters == 'b'or 'B'):
                 y =+ 1
             else:
                 x =+ 2
-        if (x > y):
+
+
+
+
+
+
+
+
+
+
+
+        if (y > x):
             common='b' 
         else:
             common='c' 
