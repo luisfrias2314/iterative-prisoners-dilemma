@@ -29,10 +29,6 @@ def move(my_history, their_history, my_score, their_score):
     # Analyze my_history and their_history and/or my_score and their_score.
     # Decide whether to return 'c' or 'b'.
     
-    
-    if len(my_history) < 5: # It's the first round; collude.
-        return 'b'
-
     def must_common(common=''): 
         y = 0
         x = 0
@@ -44,14 +40,20 @@ def move(my_history, their_history, my_score, their_score):
         if (y > x):
             common='c' 
         else:
-            common='b'
+            common='b' 
+    if len(my_history) < 5: # It's the first round; collude.
+        return 'b'
+    else:
+        if must_common(common='c'):
+             return 'b'
+        else:
+    
+             return 'c'
+    
         
              
                
-    if must_common(common='c'):
-             return 'b'
-    else:
-            return 'c'
+    
 
 def test_move(my_history, their_history, my_score, their_score, result):
     '''calls move(my_history, their_history, my_score, their_score)
