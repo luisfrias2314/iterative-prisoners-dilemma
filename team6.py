@@ -32,23 +32,23 @@ def move(my_history, their_history, my_score, their_score):
     def must_common(common=''): 
         y = 0
         x = 0
-        for letters in their_history[-5:]:
+        for letters in their_history[-6:]:
             if(letters == 'c'):
                 y =+ 1
             else:
-                x =+ 1
-        if (y > x):
-            common='c' 
-        else:
+                x =+ 2
+        if (x > y):
             common='b' 
-    if len(my_history) < 5: # It's the first round; collude.
+        else:
+            common='c' 
+    if len(my_history) < 6: # It's the first round; collude.
         return 'b'
     else:
-        if must_common(common='c'):
-             return 'b'
+        if must_common(common='b'):
+             return 'c'
         else:
     
-             return 'c'
+             return 'b'
     
         
              
