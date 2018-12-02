@@ -11,14 +11,14 @@ Section 1 - Player vs. Player
 Each column shows pts/round earned against each other player:
              P0     P1
 vs. P0 :      0   -244
-vs. P1 :     32      0
-TOTAL  :     32   -244
+vs. P1 :     36      0
+TOTAL  :     36   -244
 --------------------------------------------------------------------------------
 Section 2 - Leaderboard
 --------------------------------------------------------------------------------
 Average points per round:
 Team name (P#):  Score      with strategy name
-E2        (P0):         16 points with Alternate                               
+E2        (P0):         18 points with Alternate                               
 HONG KONG (P1):       -122 points with STRAG1                                  
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -88,23 +88,23 @@ def move(my_history, their_history, my_score, their_score):
     def must_common(common=''): 
         y = 0
         x = 0
-        for letters in their_history[-5:]:
-            if(letters == 'c'):
+        for letters in their_history[-6:]:
+            if(letters == 'c'or 'C'):
                 y =+ 1
             else:
-                x =+ 1
-        if (y > x):
-            common='c' 
-        else:
+                x =+ 2
+        if (x > y):
             common='b' 
-    if len(my_history) < 5: # It's the first round; collude.
+        else:
+            common='c' 
+    if len(my_history) < 6: # It's the first round; collude.
         return 'b'
     else:
-        if must_common(common='c'):
-             return 'b'
+        if must_common(common='b'):
+             return 'c'
         else:
     
-             return 'c'
+             return 'b'
     
         
              
@@ -152,24 +152,30 @@ if __name__ == '__main__':
          --------------------------------------------------------------------------------
 Section 3 - Game Data for Team E2
 --------------------------------------------------------------------------------
-32 pt/round: E2(P0) "Alternate"
+36 pt/round: E2(P0) "Alternate"
 -244 pt/round: HONG KONG(P1) "STRAG1"
 cbcbcBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCB
 BbBbBcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCc
 
-CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCB
-CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCc
+CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCB
+CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCc
+
+CBCBCBC
+CcCcCcC
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 Section 3 - Game Data for Team HONG KONG
 --------------------------------------------------------------------------------
 -244 pt/round: HONG KONG(P1) "STRAG1"
-32 pt/round: E2(P0) "Alternate"
+36 pt/round: E2(P0) "Alternate"
 BbBbBcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCc
 cbcbcBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCB
 
-CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCc
-CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCB
+CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCc
+CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCB
+
+CcCcCcC
+CBCBCBC
 
 --------------------------------------------------------------------------------
