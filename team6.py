@@ -29,22 +29,28 @@ def move(my_history, their_history, my_score, their_score):
     # Analyze my_history and their_history and/or my_score and their_score.
     # Decide whether to return 'c' or 'b'.
     
-    def must_common(common=''): 
+    def must_common(common=''):
+        '''collude or betray appear most often in oppenents last 5 movies'''
+        
         y = 0
         x = 0
+        #go through each letter in the last 5 decisions of opponent
         for letters in their_history[-5:]:
+            #the x or y with the highest value is equivalent of the most often letter
             if(letters == 'b'or 'B'):
+                #for every b add one to y
                 y =+ 1
             else:
                 x =+ 1
-
+        #assign the value of common to the most appeared letter
         if (y > x):
             common='b' 
         else:
             common='c' 
-    if len(my_history) < 6: # It's the first round; collude.
+    if len(my_history) < 6: # It's the first six round; collude.
         return 'b'
     else:
+        #returns opposite letter of the most common letter in last 5 decisions
         if must_common(common='b'):
              return 'c'
         else:
