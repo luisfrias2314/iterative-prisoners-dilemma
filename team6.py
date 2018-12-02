@@ -33,7 +33,7 @@ def move(my_history, their_history, my_score, their_score):
         y = 0
         x = 0
         for letters in their_history[-6:]:
-            if(letters == 'c'):
+            if(letters == 'c'or 'C'):
                 y =+ 1
             else:
                 x =+ 2
