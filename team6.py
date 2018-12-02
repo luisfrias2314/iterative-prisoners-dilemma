@@ -9,6 +9,8 @@
 team_name = 'HONG KONG' # Only 10 chars displayed.
 strategy_name = 'STRAG1'
 strategy_description = 'How does this strategy decide?'
+
+
     
 def move(my_history, their_history, my_score, their_score):
     ''' Arguments accepted: my_history, their_history are strings.
@@ -29,7 +31,6 @@ def move(my_history, their_history, my_score, their_score):
     
     if len(my_history) < 5: # It's the first round; collude.
         return 'b'
-
     def must_common(common): 
         y = 0
         x = 0
@@ -42,12 +43,13 @@ def move(my_history, their_history, my_score, their_score):
             common = 'c' 
         else:
             common = 'b'
+
     
- 
-    if must_common(common = 'c'):
+    if must_common(common) == 'c':
         return 'b'
     else: 
         return 'c'
+
 def test_move(my_history, their_history, my_score, their_score, result):
     '''calls move(my_history, their_history, my_score, their_score)
     from this module. Prints error if return value != result.
@@ -65,10 +67,11 @@ def test_move(my_history, their_history, my_score, their_score, result):
         return False
 
 if __name__ == '__main__':
-     
     # Test 1: Betray on first move.
     if test_move(my_history='',
               their_history='', 
+    if must_common(common = 'c'):
+    
               my_score=0,
               their_score=0,
               result='b'):
