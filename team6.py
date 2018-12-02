@@ -8,7 +8,7 @@
 
 team_name = 'HONG KONG' # Only 10 chars displayed.
 strategy_name = 'STRAG1'
-strategy_description = 'How does this strategy decide?'
+strategy_description = 'first six betray and the next based on opponents most common decision in last 5 moves'
 
 
 
@@ -98,6 +98,3 @@ if __name__ == '__main__':
               my_score=0, 
               their_score=0,
               result='b')   
-
-    
-         
