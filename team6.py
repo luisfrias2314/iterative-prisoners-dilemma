@@ -36,17 +36,7 @@ def move(my_history, their_history, my_score, their_score):
             if(letters == 'b'or 'B'):
                 y =+ 1
             else:
-                x =+ 2
-
-
-
-
-
-
-
-
-
-
+                x =+ 1
 
         if (y > x):
             common='b' 
