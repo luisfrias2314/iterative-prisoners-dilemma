@@ -8,7 +8,7 @@
 
 team_name = 'HONG KONG' # Only 10 chars displayed.
 strategy_name = 'STRAG1'
-strategy_description = 'first six betray and the next based on opponents most common decision in last 5 moves'
+strategy_description = 'first six betray times and then base the next move on the opponents most common decision in last 5 moves. If they betrayed more c0llude and if they colluded betray'
 
 
 
@@ -20,6 +20,7 @@ def move(my_history, their_history, my_score, their_score):
     Make my move.
     Returns 'c' or 'b'. 
     '''
+    
 
     # my_history: a string with one letter (c or b) per round that has been played with this opponent.
     # their_history: a string of the same length as history, possibly empty. 
@@ -30,7 +31,7 @@ def move(my_history, their_history, my_score, their_score):
     # Decide whether to return 'c' or 'b'.
     
     def must_common(common=''):
-        '''collude or betray appear most often in oppenents last 5 movies'''
+        '''collude or betray appear most often in oppenents last 5 moves'''
         
         y = 0
         x = 0
@@ -47,7 +48,7 @@ def move(my_history, their_history, my_score, their_score):
             common='b' 
         else:
             common='c' 
-    if len(my_history) < 6: # It's the first six round; collude.
+    if len(my_history) < 6: # It's the first six round; betray.
         return 'b'
     else:
         #returns opposite letter of the most common letter in last 5 decisions
